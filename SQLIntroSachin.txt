@@ -1,0 +1,778 @@
+DATABASE TECH.
+SQL
+
+****** WHAT IS DATABASE ?
+ - DATABASE is organized from data for easy access, storing and managing the data.
+ - this can access by many ways nd it is also knwn as structured from the data.
+EX . School management database,Bank management database.
+
+-----------------------------------------------------------------------
+****** What is DBMS ?
+ - A DATABASE MANAGEMENT SYSTEM is a Software system it is used for 
+   CREATING AND MANAGING the database.
+ - Todays any enterprise application need to manage data 
+   DBMS make it possible for end user to build nd manage th data,
+ - DBMS provides the interface between the end user and database.
+-----------------------------------------------------------------------
+****** What is RDBMS ?
+ - RDBMS Stands for RELATIONAL DATABASE MANAGEMENT SYSTEM.
+ - It is based on relational models.
+ - RDBMS stores the data into the collection of table and the links those tables using relational operator.
+
+-----------------------------------------------------------------------
+****** What is SQL ?
+ - SQL Stands for STRUCTURED QUERY LANGUAGE  and it is used to communicate with the Database.
+ - SQL is a standard query language used to perform Creation modifying deletion and fetching.
+ - it also used for maintaining the realtional database nd perform many operation.
+ 
+-----------------------------------------------------------------------
+***** CATEGORIES / SUBSET OF SQL:
+1. DDL (DATA DEFINATION LANGAUAGE) :
+  - DDL is used to Define the Data structure.
+  - We are used in the Intial stage of the data base is created.
+  - It consist of the command like CREATE,ALTER,DROP,RENAME.
+   
+CREATE,ALTER,DROP,RENAME.
+
+2. DML (DATA MANIPULATION LANGUAGE)
+ - DML is used to Retrive nd manipulate already existing data in the data-base 
+ - It consists the commond like INSERT,DELETE,UPDATE,SELECT
+ 
+
+3. DCL (DATA CONTROL LANGUAGE)
+
+ - DCL is used to control access the data in the database
+ - It conssist the commond like GRANT,REVOKE.
+
+ GRANT - To GRANT the specific to perform task.
+ REVOKE - to cancle previously granted permission.
+
+4. TCL (TRANSACTION CONTROL LANGUAGE)
+
+ -SAVEPOINT,COMMIT,ROLLBACK.
+
+------------------------------------------------------------------------------
+***** TABLES AND FIELDS :
+
+A tables is set of organized data. 
+It has a Rows nd A Columns. 
+Columns can be organized by Vertical nd Rows can be Horizontal.
+A tables has a specified no of columns which is called Field ,
+but they can have no of data which is called Record.
+
+EX : 
+TABLES : employee
+FIELDS : empid,e_name,age
+RECORD : 1256,Sachin,24
+
+----------------------------------------------------------------
+***** CONSTRAINTS :
+
+NOT NULL		 EX : 	CREATE TABLE Students(
+UNIQUE				id INT NOT NULL UNIQUE AUTO_INCREMENT,
+CHECK				name VARCHAR(50) NOT NULL,
+DEFAULT				age INT NOT NULL CHECK (18>=),
+PRIMARY KEY 			gender VARCHAR (1) NOT NULL,
+FOREIGN KEY			city VARCHAR(15) NOT NULL DEFAULT 'CHIKHLI',
+				PRIMARY KEY(ID),
+				FOREIGN KEY(city) REFERENCES City(cid));
+
+1. UNION :
+ - UNIQUE KEY doesnot allow duplicate value.
+ - But There is null value are allow.
+ - there are multiple UNIQUE CONSTRAINTS in per table bt 
+   per table only one PRIMARY KEY.
+
+2. PRIMARY KEY :
+ - PRIMARY KEY has always UNIQUE DATA.
+ - PRIMARY KEY cannot have null value.
+ - A table can contain only one  PRIMARY KEY CONSTRAINTS.
+
+IF we have existng table
+		ALTER TABLE Students
+		ADD PRIMARY KEY(id);
+
+3. FOREIGN KEY :
+ - A FOREIGN KEY is used to link two tables together.
+ - a FK is used to point PK in another table.
+IF we have existng table
+		ALTER TABLE Students
+		ADD FOREIGN KEY(city) REFERNECES City(cid);
+
+------------------------------------------------------------------------
+JOINS :
+ - JOINS are used to merge two tables or aretrive data from tables.
+ - It depends on Relation ship between two Tables.
+
+1. INNER JOIN
+2. LEFT JOIN 
+3. RIGHT JOIN
+4. FULL JOIN
+5. CROSS JOIN 
+
+1. INNER JOIN 
+ - The INNER JOIN  Returns the record tha have matching values in BOTH Tables.
+		SELECT * FROM dept d(
+  		INNER JOIN emp e
+		ON d.deptno = e.deptno;
+	------------------------------------
+		SELECT * FROM dept d(
+  		INNER JOIN emp e
+		ON d.deptno = e.deptno;
+		WHERE e.ename='Chikhli';
+	------------------------------------
+		SELECT * FROM dept d(
+  		INNER JOIN emp e
+		ON d.deptno = e.deptno;
+		WHERE e.ename='Chikhli';
+		ORDER BY d.dname;
+
+2. LEFT JOIN
+ - The LEFT JOIN returns all Record from LEFT HAND SIDE TABLE and matched record from RIGHT HAND SIDE TABLE.
+ 		SELECT * FROM Students(
+  		LEFT JOIN City c		s.city--FK
+		ON s.city = c.cid;              c.cid --PK
+	------------------------------------
+  WHERE	&	SELECT * FROM Students(
+  ORDER_BY 	LEFT JOIN City c			
+		ON s.city = c.cid
+		WHERE gender='m'
+		ORDER BY s.name;
+
+3. RIGHT JOIN
+ - The RIGHT JOIN returns all Record from RIGHT HAND SIDE TABLE and matched record from LEFT HAND SIDE TABLE.
+ 		SELECT * FROM Students(
+  		RIGHT JOIN City c		s.city--FK
+		ON s.city = c.cid;              c.cid --PK
+	------------------------------------
+  WHERE	&	SELECT * FROM Students(
+  ORDER_BY 	RIGHT JOIN City c			
+		ON s.city = c.cid
+		WHERE gender='m'
+		ORDER BY s.name;
+
+4. FULL JOIN 
+ - FULL JOINS Returns all the data from RIGHT HAND SIDE & LEFT HAND SIDE TABLE.
+ - IT Is used SET OPERATOR
+	UNION - It Does not allow duplicate Value
+  & UNION ALL - It returns All Data from  both tables,allow duplicate value.
+ 		
+		SELECT * FROM Students(
+  		LEFT JOIN City c		
+		ON s.city = c.cid;
+		UNION / UNION ALL
+   		SELECT * FROM Students(
+  		RIGHT JOIN City c		
+		ON s.city = c.cid;  
+
+5. CROSS JOIN
+ - Basically Combination of two tables.
+	SELECT s.id,s.name AS Name FROM Student s
+        CROSS JOIN City c;
+	
+-----------------------------------------------------------------------------------
+***** JOIN MULTIPLE TABLE :
+		SELECT * FROM Students(
+  		INNER JOIN City c			
+		ON s.city = c.cid		s.city--FK
+  		INNER JOIN City c	 	c.cid --PK		
+		ON s.course = cr.crid		s.course from Student table
+		WHERE c.cname='Chikhli'		cr.crid from Course table
+		ORDER BY s.name;
+
+-----------------------------------------------------------------------------------
+***** DATATYPES :
+ 1. STRING
+CHAR		0 - 255
+VARCHAR		0 - 65535
+TEXT		65535 BYTES FIXED
+TINYTEXT	255 FIXED
+MIDIUMTEXT
+LONGTEXT
+
+ 2. NUMERIC
+BIT
+INT
+TINYINT
+INTEGER
+SMALL/MEDIUM/BIGINT
+ 
+ 3. DATE AND TIME 
+DATE
+DATETIME
+TIMESTAMP
+TIME
+YEAR
+
+------------------------------------------------------------------------
+
+***** CREATE :
+	CREATE TABLE Student(
+	id INT NOT NULL,
+	name VARCHAR(50),
+	dob DATE,
+	gender VARCHAR(1) ); 
+	
+***** INSERT :
+	INSERT INTO Students VALUES (1,'Sachin','13-08-1996','M');
+	
+	INSERT INTO Students (id,name,dob,gender) VALUES (1,'Sachin','13-08-1996','M');
+
+***** SELECT :
+	SELECT * FROM Students;
+	
+	SELECT id,name,gender FROM Students;
+With WHERE Clause
+	SELECT id,name,gender FROM Students
+	WHERE gender = 'M';		=,>,<,<=,>=,!= 
+
+--------------------------------------------------------------------------
+***** GROUP BY
+ - The GROUP BY Clause is used with the SELECT & AGGREGATE function.
+ - Is used for GROUP of Rows together by Common Column value.
+
+SELECT s.name,COUNT(s.city) 		SELECT s.name,COUNT(s.city)
+FROM Student s	 			FROM Student s
+INNER JOIN City c			GROUP BY City;
+ON s.city = c.cid
+WHERE s.gender = 'M'			## Sigle Table
+GROUP BY City;
+--------------------------------------------
+***** GROUP BY with HAVING CLAUSE
+ -Replace with WHERE Clause
+
+SELECT s.name,COUNT(s.city) 		
+FROM Student s	 			
+INNER JOIN City c			
+ON s.city = c.cid			
+GROUP BY City
+HAVING COUNT(s.city) > 3;
+---------------------------------------------
+***** ORDER BY
+
+SELECT * FROM Student			SELECT * FROM Student
+ORDER BY name DESC;			WHERE city = 'Chikhli'
+					ORDER BY name DESC;
+
+SELECT s.name,COUNT(s.city) 		
+FROM Student s	 			
+INNER JOIN City c			
+ON s.city = c.cid			
+GROUP BY City
+HAVING COUNT(s.city) > 3
+ORDER BY city DESC;
+
+---------------------------------------------
+***** DISTINCT
+SELECT DISTINCT name,age
+FROM Student
+ORDER BY name;
+
+--------------------------------------------
+
+***** LOGICAL OPERATOR
+{AND,OR,NOT}
+
+SELECT * FROM Student 
+WHERE age >= 18 AND gender='M';
+
+SELECT * FROM Student 
+WHERE age <= 21 AND gender='M' AND city='Chikhli';
+
+SELECT * FROM Student 
+WHERE age >= 18 OR city = 'Pune';
+
+SELECT * FROM Student 
+WHERE NOT age >= 21;
+
+------------------------------------------------
+***** IN OPERATOR
+	SELECT * FROM Student 
+	WHERE age >= 18 OR age = 20;
+
+IN -->
+	SELECT * FROM Student 
+	WHERE IN age (18,20);
+NOT IN -->
+	SELECT * FROM Student 
+	WHERE NOT IN age (18,19,20);
+
+------------------------------------------------
+***** BETWEEN OPERATOR
+	SELECT * FROM Emp 
+	WHERE sal >= 1800 AND sal <=2099;
+
+BETWEEN -->
+	SELECT * FROM Emp 
+	WHERE sal BETWEEN 1800 AND 2099;
+NOT BETWEEN -->
+	SELECT * FROM Emp 
+	WHERE sal NOT BETWEEN 1800 AND 2099;
+------------------------------------------------
+***** LIKE OPERATOR
+a%		START WITH A
+%a		END WITH A
+%sa%		HAVE IN ANY POS
+a%s		START A END WITH S
+_a%		A AT 2ND POS
+--c%		C AT 3RD POS
+_ac		2 2ND C 3RD
+%a%a%		A HAVE TWICE IN WORD
+%a% NOT LIKE %a%a%   A ONLY ONCE NOT TWICE
+
+SELECT * FROM Student
+WHERE name LIKE 'a%';
+
+SELECT * FROM Student
+WHERE name BINARY LIKE 'A%';    IT GIVES ONLY START FROM CAP A WORD
+--------------------------------------------------
+***** REGULAR EXPRESSION
+
+^sac		START WITH SAC
+sac$		END WITH SAC
+[sa]		ANY WHERE IN WORD
+^[sa]    	START FROM SA
+
+SELECT * FROM Students
+WHERE nmae REGEXP 'sac' ; 
+--------------------------------------------------
+***** IS NULL / IS NOT NULL
+
+SELECT * FROM Emp
+WHERE comm IS NULL ;
+
+SELECT * FROM Emp
+WHERE comm IS NOT NULL ;
+--------------------------------------------------
+
+LIMIT FUNCTION 
+
+GET FIRST 5 BOOKS
+ 	SELECT * FROM BOOKS
+	LIMIT 5;
+SKIP FIRST 3 BOOKS ND GET NEXT 2 BOOKS
+	SELECT * FROM BOOKS
+	LIMIT 3,2;         3--> OFFSET
+
+	SELECT * FROM BOOKS
+	WHERE city = 'Chikhli'
+	ORDER BY name
+	LIMIT 5;
+-------------------------------------------------
+AGGREGATE FUNCTION
+ 1. COUNT()
+ 2. MAX()
+ 3. MIN()
+ 4. SUM()
+ 5. AVG()
+	1. SELECT COUNT(name/*) AS Name FROM Student;
+	2. SELECT COUNT(DISTINCT name/*) AS Name FROM Student;
+
+	3. SELECT MAX(percentage) AS % FROM Student;
+	4. SELECT MIN(percentage) AS %,name,city FROM Student;
+
+	5. SELECT AVG(percentage) AS Total,name,city FROM Student;
+-------------------------------------------------
+***** UPDATE 
+ 	UPDATE Student 
+	SET percentage=55
+ 	WHERE id=2;
+
+ 	UPDATE Student 
+	SET percentage=65,age=25
+ 	WHERE id=2;
+
+INCREASE PRISE OF C-PRO BOOKS BY 10%
+	
+	UPDATE Books
+	SET prise=prise+prise*0.10
+	WHERE subject='C-Pro' ;
+------------------------------------------------
+***** ROLLBACK / COMMIT
+WORKS FOR 
+INSERT,UPDATE,DELETE 
+If we update any Tbale data by mistake then how to correct that mistake thats why we use Rollback.
+
+INSERT,UPDATE,DELETE  ALL COMMAND ARE REVERTED BY USING
+
+	ROLLBACK ;
+
+ALL QURIES WILL BE PERMANANTLY SAVED BY USING
+
+	COMMIT ;
+-----------------------------------------------
+
+***** DELETE 
+ - Can delete one or more rows from table
+ - but he could not delete table data nd table schema
+single row-->
+DELETE FROM Books WHERE id = 1234;
+
+multiple row -->
+DELETE FROM Books WHERE subject= dbt ;
+
+DELETE FROM Books WHERE age>20 ;
+---------------------------------------
+***** TRUNCATE
+ - Delete all rows nd
+ - it will be delete all data bt he not able to delete table structure
+
+	TRUNCATE TABLE Students;
+----------------------------------------------
+***** DROP
+ - IT WILL DELETE TABLE STRUCTURE AS WELL AS DATA
+	
+	 DROP TABLE emp
+
+	 DROP TABLE IF EXISTS Student;
+---------------------------------------------------------------
+***** ROW LOCKING / OPTIMISTIC LOCKING:-
+
+Within a transaction we can UPDATE OR DELETE query perform then LOCKING gets Started.
+
+ - When user UPDATE OR DELETE a row that row is locked,nd becomes a read only for others.
+ - other users see row values until transaction commited by first user.
+ - if other user try to modify locke row,their transacion blocked until row is unlocked.
+ - The row is automatically relases when commit/ rollback is done by user
+ - this whole process done automaticlly in MySQL.
+ - It is called as OPTIMISTIC LOCKING.  
+
+ - Manually Locking the row in advanced before UPDATE nd DELETE is known as PESSIMISTIC LOCKING.
+ - This is done by Appending FOR UPDATE to the select query.
+	SELECT * FROM dept WHERE deptno=40 FOR UPDATE
+ 
+ - By default MySQL does table Locking. Row level locking is possible only when is indexed.
+----------------------------------------------------------------------
+CHAR :
+ - RANGE 1 - 255 
+ - FIXED INLINE STORAGE
+ - VERY FAST ACCESS THEN VARCHAR
+ - CHAR FOR USED FOR INDEXING
+ - WASTE STORAGE SPACE
+
+VARCHAR :
+ - Stores length nd data
+ - VARIABLE INLINE STORAGE 
+ - SLOWER ACCESS THAN CHAR ND FASTER ACCESS THAN TEXT 
+ - WE USED FOR INDEXING
+ - DOES NOT WASTE STORAGE
+
+TEXT :
+ - Larger variable size
+ - Stores length nd data
+ - EXTERNAL INLINE STORAGE
+ - VERY SLOW ACCES THEN BOTH CHAR ND VARCHAR 
+
+----------------------------------------------------------------------------
+***** NORMALIZATION :-
+ - NORMALIZATION is used to minimize dependency and redundancy 
+   orgnizing by feilds and tables of database.
+ - nd eliminates undesirable charcteristics like INSERT,UPDATE AND DELETE anomalies.
+
+ There are some rules of database normalization which commonly known as Normal From 
+ and they are:
+
+1-NF :
+ - remove all the duplicate columns from the table 
+ - Key will be PK of new table
+
+2-NF :
+ - In the 2NF, relational must be in 1NF.
+ - all non-key attributes are fully functional dependent on the primary key
+
+3-NF:
+ - A relation will be in 3NF if it is in 2NF 
+ - 3NF is used to reduce the data duplication.
+ - If there is no dependency for non-prime attributes, 
+   then the relation must be in third normal form.
+
+BCNF:
+ - The table should be in 3NF
+ - BCNF is the advance version of 3NF. It is stricter than 3NF.
+ - A table is in BCNF if every functional dependency X → Y, 
+   X is the super key of the table.
+
+---------------------------------------------------------------
+***** STORED PROCEDURE :-
+ - A STORED PROCEDURE is a group of SQL statement , that we save in the database.
+ - The DML queries is used to created STORED PROCEDURE.
+ - STORED PROCEDURE does not return value.
+ - PROCEDURE can take zero or more parameter wid the hlp of Procedure can return value.
+
+SYNTAX :
+	CREATE TABLE RESULT(v1 INT/DOUBLE,v2 VARCHAR(50));	//CREATE TABLE
+
+	DELIMETER $$
+	CREATE [OR REPLACE] PROCEDURE SP_hello(procedure_name)  //PROCEDURE SYNTAX
+	BEGIN
+		INSERT INTO result VALUES (1,'HELLO WORLD');
+	END;
+	$$ 
+
+	CALL SP_hello                                        // CALL PROCEDURE
+
+ADVANTAGE :
+STORD PRO. PROVIDE BETTER SECUIRTY.
+Stored procedure support faster execution whenever we required to create stores nd calls.
+------------------------------------------------------------------
+STORED FUNCTION :-
+ - A function has return type nd return value.
+ - can not use with DML queries.
+ - Can call function using select statement. 
+
+------------------------------------------------------------------
+***** ACID PROPERTIES OF TRANSACTION :-
+
+A singal logical operation of data is called Transaction.
+ 1. ATOMIC :
+  - It means if one operation of transaction is failed then the entire transaction is failed.
+ 2. Consistency :
+  - When transaction is completed database should display same data on both side.
+ 3. ISOLATION :
+  - Multiple transaction are processed concurrently.
+ 4. DURABLE :
+  - When transaction is completed, all change should reflect or saved in our Database.
+
+USE :
+   Where multiple row must be iserted updated or deleted as a single unit.
+   Modifying data in two or more database concurrently.
+------------------------------------------------------------------
+***** VIEW :-
+ - A view is database object whose values are based on the base table.
+ - It is a virtual table.
+ - It is operated same as base table but does not have own values/data.
+ - it is created by query, by joining one or more table.
+
+	CREATE VIEW view_name AS
+	SELECT * FROM emp		// view for limited rows
+	WHERE sal>2000; 
+
+CREATE VIEW veiwname2 AS
+SELECT*FROM emp;			//for all table
+
+-------------------------------------------------------------------
+***** TRIGGERS : -
+ - A TRIGGERS ia code in a database that automaticcaly invokes 
+   when some events on table or view in the database occur.
+ - It can be executed whe record are perfom any DML query in database.
+
+SYNTAX		CREATE TRIGGER TR_NAME
+		[BEFORE | AFTER]
+		{INSERT|UPDATE|DELETE}
+		ON TABLE_NAME
+		FOR EACH ROW 
+		BEGIN 
+			------	------	
+		END;					    FIG: PL/SQL BLOCK CODE 
+------------------------------------------------------------------
+Find sum of two NUMBERS 		Find Greatest of two Numbers 
+:-  declare					declare
+    a int,					a int,
+    b int,					b int,
+    c int,					begin
+    begin					a :=10;
+    a :=10;					b :=25;
+    b :=25;					if(a > b)
+    c :=a + b;				        then
+    dbms_output.put_line(			dbms_output.put_line
+    'Sum of a nd b = '||c)			('a is greater ' ||a);
+    end;					else
+					         dbms_output.put_line(
+					        ('b is greater ' ||b);
+					        endif;
+	    				        end;
+-----------------------------------------------------------------
+***** CRUD OPERATION ON MONGO DATABASE
+
+## CREATE : CREATE OR INSERT OPERATION ADD NEW DOCUMENTS TO A COLLECTION.
+
+ 	:-   db.collection.insertOne();
+	:-   db.collection.insertMany();
+Ex. 	db.contacts.insertOne({Name :"Sachin",Mobile : "7030312956"});
+
+Ex.	db.contacts.insertMany([
+	{Name :"Sachin",Mobile : "7030312956"}
+	{Name :"Shubham",Mobile : "8080515764"}
+	]);
+
+## READ : READ OPERATION RETRIVE DOCUMENTS FROM A COLLECTION.
+
+	:-   db.collection.find();
+Ex.	db.user.find(
+	{age: {$gt :18}}
+	{name:1,address:1}
+	) 
+
+## UPDATE : UPDATE OPRATION MODIFY EXISTING DAOCUMENTS IN COLLECTION.
+	
+	:- db.collection.updateOne(); 
+	:- db.collection.updateMany();
+	:- db.collection.replaceOne();
+Ex.	db.users.updateMany(
+	{age:{$lt :18}}
+	{$ set :{status : "reject"}}
+	)
+
+## DELETE : DELETE OPRATION REMOVE DOCUMENTS FROM A COLLECTION.
+
+	:- db.collection.deleteOne(); 
+	:- db.collection.deleteMany();
+
+Ex.	db.users.deletemany(
+	{status :"reject"})
+---------------------------------------------------------------------
+
+1. Write a sql query to display maximum/heighest salary/heighest from emp table.
+
+:- SELECT MAX(salary) from Emp;
+
+2. Write a sql query to display Employee name whose taking maximum/highest salary
+
+:-  SELECT ename FROM emp 
+    WHERE salary = ( SELECT MAX(salary) from Emp );
+
+3. Write a sql query to display 2nd heighest salary from emp table.
+
+:-  select * from emp where sal = (Select sal from emp order by sal desc limit 1,1);
+
+:-  SELECT salary FROM 
+    (SELECT salary FROM employees ORDER BY salary DESC LIMIT 2) AS Emp 
+    ORDER BY salary LIMIT 1;  
+
+4. Write a query to display all the dept names along with no of emps working in that?
+
+:-  SELECT dept,COUNT(*/dept) FROM emp 
+    GROUP BY dept;
+
+5. Write a query to display all the dept names where no of emps are less than 2
+ 	 SUBQUERY
+
+:-  SELECT dname FROM emp
+    WHERE dept IN
+    ( SELECT dept FROM emp 
+    GROUP BY dept 
+    HAVING COUNT(*) < 2 );
+
+6.  Write a query to display highest salary dept wise and name of emp who is taking that salary
+
+:-  SELECT ename FROM emp 
+    WHERE salary
+    IN (SELECT MAX(salary) FROM emp 
+    GROUP BY dept);
+
+7. Write a query to display range of emp based on id
+
+:-  SELECT * FROM emp 
+    WHERE eid BETWEEN 2003 AND 2008;
+
+8. RETURN  ename ,highest salary and department name (join)
+
+:-  SELECT e.ename,e.salary,d.dept_name FROM emp e
+    INNER JOIN dept d
+    ON (e.dept_id = d.dept_id)
+    WHERE salary IN (SELECT MAX(salary) FROM emp );
+
+9. RETURN  ename ,highest salary and department name for each department(join)
+
+:-  SELECT e.ename,e.salary,d.dept_name FROM emp e
+    INNER JOIN dept d
+    ON (e.dept_id = d.dept_id)
+    WHERE salary IN (SELECT MAX(salary) FROM emp GROUP BY dept_id);
+
+10. To find Nth highest salary is:
+
+:-  SELECT DISTINCT(salary)FROM emp ORDER BY salary DESC LIMIT n-1,1
+
+WITHOUT TOP / LIMIT 
+:-  SELECT salary FROM emp e1
+    WHERE N-1 = (SELECT COUNT(DISTINCT salary) FROM emp e2 WHERE e2.salary>e1.salary);
+
+
+11. to find 3rd largest salary:
+
+:-  SELECT DISTINCT (salary) FROM emp ORDER BY salary DESC LIMIT 2,1;
+:-  SELECT salary FROM emp ORDER BY salary DESC LIMIT 4,1;
+	1,1 2nd high
+	3,1 4th high
+ 	4,1 5th high
+
+:-   SELECT * FROM emp WHERE salary = 
+     (SELECT DISTINCT (salary) FROM emp ORDER BY salary DESC LIMIT 2,1) ;
+
+12. To find all duplicate in a table
+ 
+:-  SELECT eid FROM emp 
+    GROUP BY eid
+    HAVING COUNT (eid) > 1; 
+
+13. What is the query to display the top 20 rows ?
+
+:-      SELECT * FROM emp LIMIT 0,20;
+
+14. Write a query to calculate the even nd odd records from a table
+
+EVEN :-   SELECT * FROM emp WHERE MOD(eid,2) = 0;
+
+ODD :-    SELECT * FROM emp WHERE MOD(eid,2) = 1;
+
+15. Write a query to dispalay first nd last record from table
+
+FIRST :-   SELECT * FROM emp WHERE eid = (SELECT MIN(eid) FROM emp);
+
+LAST :-    SELECT * FROM emp WHERE eid = (SELECT MAX(eid) FROM emp);
+
+16. How to create empty table with the same structure as another table
+
+:-  	SELECT * INTO emp_copy FROM emp WHERE 1 = 2 ; 
+
+17. Write a query to display the current date and time?
+
+:- 	SELECT NOW();
+
+If you want to display the current date only, use:
+
+	SELECT CURRENT_DATE();
+
+18. Write a query to count the number of rows of a table in MySQL.
+
+:-	SELECT COUNT user_id FROM users;
+
+19. Write a query to retrieve a hundred books starting from 20th.
+
+:-	SELECT book_title FROM books LIMIT 20, 100;
+
+20. Write a query to select all teams that won either 1, 3, 5, or 7 games.
+
+:-	SELECT team_name FROM team WHERE team_won IN (1, 3, 5, 7);
+
+21. The following statement retrieves all rows where column employee_name contains the text 1000 (example salary):
+
+:-	Select employee_name    
+	From employee    
+	Where employee_name REGEXP '1000'    
+	Order by employee_name    
+
+22. Write an SQL query to find names of employee start with 'A'?
+
+:-	SELECT * FROM emp WHERE ename like 'A%' ;
+
+23. How to fetch common records from two tables?
+
+:-	Select sID from student INTERSECT Select sID from Exam ;
+
+24. Write a query to print name of emp nd his manager also print 
+    managers manager name.
+
+:-  	SELECT e.ename AS ename, m.ename AS mname, mm.ename AS mmname FROM emp e
+	LEFT JOIN emp m ON e.mgr = m.empno
+	LEFT JOIN emp mm ON m.mgr = mm.empno ;   
+
+25. Delete Duplicate record from table
+
+:- 
+
+
+
+
+
+
