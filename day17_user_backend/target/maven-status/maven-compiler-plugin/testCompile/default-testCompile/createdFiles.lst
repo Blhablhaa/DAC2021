@@ -1,0 +1,3 @@
+com\app\ApplicationTests.class
+com\app\dao\UserDaoTests.class
+com\app\service\UserServiceTests.class

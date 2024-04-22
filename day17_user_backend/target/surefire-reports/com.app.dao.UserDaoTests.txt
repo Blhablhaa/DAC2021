@@ -1,0 +1,12 @@
+-------------------------------------------------------------------------------
+Test set: com.app.dao.UserDaoTests
+-------------------------------------------------------------------------------
+Tests run: 2, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.175 s <<< FAILURE! - in com.app.dao.UserDaoTests
+testAddUser  Time elapsed: 0.102 s  <<< ERROR!
+org.springframework.dao.DataIntegrityViolationException: could not execute statement; SQL [n/a]; constraint [users.UK_k8d0f2n7n88w1a16yhua64onx]; nested exception is org.hibernate.exception.ConstraintViolationException: could not execute statement
+	at com.app.dao.UserDaoTests.testAddUser(UserDaoTests.java:27)
+Caused by: org.hibernate.exception.ConstraintViolationException: could not execute statement
+	at com.app.dao.UserDaoTests.testAddUser(UserDaoTests.java:27)
+Caused by: java.sql.SQLIntegrityConstraintViolationException: Duplicate entry 'Kiran' for key 'users.UK_k8d0f2n7n88w1a16yhua64onx'
+	at com.app.dao.UserDaoTests.testAddUser(UserDaoTests.java:27)
+
